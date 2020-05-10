@@ -3,6 +3,13 @@
 sample of fake transactions analyzer using kafka
 
 
+##### Create network
+
+```sh
+docker create network kafka-network
+```
+
+
 ##### Run kafka-cluster
 
 ```sh

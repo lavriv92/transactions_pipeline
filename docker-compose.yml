@@ -16,6 +16,16 @@ services:
       REAL_TRANSACTIONS_TOPIC: transactions.real
       FAKE_TRANSACTIONS_TOPIC: transactions.fake
 
+  websockets_server:
+    build: ./websockets_server
+    ports:
+      - "3000:3000"
+    environment:
+      KAFKA_BROKER_URL: broker:9092
+
+      REAL_TRANSACTIONS_TOPIC: transactions.real
+      FAKE_TRANSACTIONS_TOPIC: transactions.fake
+
 networks:
   default:
     external:

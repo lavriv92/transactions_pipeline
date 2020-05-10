@@ -2,7 +2,7 @@ import os
 
 from .exceptions import ConfigException
 
-def _get_env_variable(key):
+def _get_env_variable(key: str) -> str:
     value = os.getenv(key)
 
     if value is None:

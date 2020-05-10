@@ -7,8 +7,8 @@ services:
       KAFKA_BROKER_URL: broker:9092
       TRANSACTIONS_TOPIC: transactions.all
 
-  analyzator:
-    build: ./analyzator
+  analyser:
+    build: ./analyser
     environment:
       KAFKA_BROKER_URL: broker:9092
       TRANSACTIONS_TOPIC: transactions.all

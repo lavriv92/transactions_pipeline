@@ -2,11 +2,11 @@ import os
 import json
 from kafka import KafkaConsumer, KafkaProducer
 
-from transactions_analyser import config
-from transactions_analyser.analyser import is_fake
+from . import config
+from .analyser import is_fake
 
 
-def main():
+def run():
     consumer = KafkaConsumer(
         config.TRANSACTIONS_TOPIC,
         value_deserializer=json.loads,
@@ -21,7 +21,3 @@ def main():
     for msg in consumer:
         if is_fake(msg.value):
             producer.send(config.FAKE_TRANSACTIONS_TOPIC, msg.value)
-
-
-if __name__ == "__main__":
-    main()

@@ -13,6 +13,9 @@ services:
       KAFKA_BROKER_URL: broker:9092
       TRANSACTIONS_TOPIC: transactions.all
 
+      REAL_TRANSACTIONS_TOPIC: transactions.real
+      FAKE_TRANSACTIONS_TOPIC: transactions.fake
+
 networks:
   default:
     external:

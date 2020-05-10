@@ -1,6 +1,6 @@
 import os
 import json
-from kafka import KafkaConsumer
+from kafka import KafkaConsumer, KafkaProducer
 
 from transactions_analyzator import config
 from transactions_analyzator.analyzator import is_fake
@@ -13,9 +13,16 @@ def main():
         bootstrap_servers=config.KAFKA_BROKER_URL
     )
 
+    producer = KafkaProducer(
+        value_serializer=lambda v: json.dumps(v).encode('utf-8'),
+        bootstrap_servers=config.KAFKA_BROKER_URL
+    )
+
     for msg in consumer:
-        t_type = 'fake' if is_fake(msg.value) else 'real'
-        print(f"{t_type}: {msg.value}")
+        topic = config.FAKE_TRANSACTIONS_TOPIC \
+             if is_fake(msg.value) else config.REAL_TRANSACTIONS_TOPIC
+        print(f"{topic}: {msg.value}")
+        producer.send(topic, msg.value)
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ import json
 from kafka import KafkaConsumer, KafkaProducer
 
 from transactions_analyser import config
-from transactions_analyser.analyzator import is_fake
+from transactions_analyser.analyser import is_fake
 
 
 def main():

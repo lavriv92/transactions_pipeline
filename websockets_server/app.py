@@ -14,10 +14,15 @@ async def server_handler(websocket, path):
     consumer = KafkaConsumer(
       config.FAKE_TRANSACTIONS_TOPIC,
       bootstrap_servers=config.KAFKA_BROKER_URL,
+      value_deserializer=json.loads
     )
 
     for msg in consumer:
-        await websocket.send(msg.value)
+        print(msg.value)
+
+        payload = json.dumps(msg.value)
+
+        await websocket.send(payload)
 
 
 def main():

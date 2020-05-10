@@ -26,6 +26,9 @@ services:
       REAL_TRANSACTIONS_TOPIC: transactions.real
       FAKE_TRANSACTIONS_TOPIC: transactions.fake
 
+      HOST: 0.0.0.0
+      PORT: 3000
+
 networks:
   default:
     external:

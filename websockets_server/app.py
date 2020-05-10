@@ -7,32 +7,17 @@ import websockets
 from kafka import KafkaConsumer
 from websockets_server import config
 
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 async def server_handler(websocket, path):
-    # real_consumer = KafkaConsumer(
-    #   config.REAL_TRANSACTIONS_TOPIC,
-    #   bootstrap_servers=config.KAFKA_BROKER_URL,
-    #   value_deserializer=json.loads
-    # )
+    consumer = KafkaConsumer(
+      config.FAKE_TRANSACTIONS_TOPIC,
+      bootstrap_servers=config.KAFKA_BROKER_URL,
+    )
 
-    # fake_consumer = KafkaConsumer(
-    #   config.FAKE_TRANSACTIONS_TOPIC,
-    #   bootstrap_servers=config.KAFKA_BROKER_URL,
-    #   value_deserializer=json.loads
-    # )
-
-    # for msg in real_consumer:
-    #     await websocket.send(msg.value)
-
-    # for msg in fake_consumer:
-    #     await websocket.send(msg.value)
-
-    while True:
-      await websocket.send({ 'message': 'Hello' })
-      time.sleep(3)
+    for msg in consumer:
+        await websocket.send(msg.value)
 
 
 def main():

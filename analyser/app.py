@@ -19,10 +19,8 @@ def main():
     )
 
     for msg in consumer:
-        topic = config.FAKE_TRANSACTIONS_TOPIC \
-             if is_fake(msg.value) else config.REAL_TRANSACTIONS_TOPIC
-        print(f"{topic}: {msg.value}")
-        producer.send(topic, msg.value)
+        if is_fake(msg.value):
+            producer.send(config.FAKE_TRANSACTIONS_TOPIC, msg.value)
 
 
 if __name__ == "__main__":
